@@ -47,8 +47,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             session_start();
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
-
-                            header("location: homepage.php");
+                            if($username == "admin")
+                              header("location: summary.php");
+                            else
+                              header("location: homepage.php");
                         } else{
 
                             $login_err = "Invalid username or password.";
