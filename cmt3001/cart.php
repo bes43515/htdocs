@@ -8,7 +8,9 @@ require_once "config.php";
 
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
-
+if($_GET['error']){
+  echo "<h2>Not Enough Stock</h2>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,12 +46,17 @@ $username_err = $password_err = $login_err = "";
 </div>
 
 <?php
-  $sql = "SELECT userId, username, password FROM users";
+
+  $sum=0;
+  $sql = "SELECT productName, price, quantity FROM orderlist WHERE userId='".$_SESSION['userId']."'";
   $result = mysqli_query($link,$sql,MYSQLI_USE_RESULT);
   if($result){
     while($row=mysqli_fetch_row($result)) {
-      echo "id: " . $row[0]. " - Name: " . $row[1]. "     Password:" . $row[2]. "<br>";
+      echo "productName: " . $row[0]. " - Price: " . $row[1]. "     Quantity:" . $row[2]. "<br>";
+      $sum+= $row[1]*$row[2];
     }
+    echo "<br>Total Price : " .$sum.
+    "<br><a href='checkOut.php'><button>Check Out</button></a>";
   }
   $link->close();
 ?>

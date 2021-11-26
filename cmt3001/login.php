@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty($username_err) && empty($password_err)){
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $sql = "SELECT userId, username, password FROM users WHERE username = ?";
 
         if($statment = mysqli_prepare($link, $sql)){
                   //  error_log(print_r("yes" ,TRUE));
@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         if($password == $hashed_password){
                             error_log(print_r($hashed_password,TRUE));
                             session_start();
-                            $_SESSION["id"] = $id;
+                            $_SESSION["userId"] = $id;
                             $_SESSION["username"] = $username;
                             if($username == "admin")
                               header("location: summary.php");

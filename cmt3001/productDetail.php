@@ -23,7 +23,7 @@ $username_err = $password_err = $login_err = "";
 <body>
 
 <div class="head">
-<h1> UserPage </h1>
+<h1> Summary Page </h1>
 </div>
 
 <div class="topnav">
@@ -44,13 +44,22 @@ $username_err = $password_err = $login_err = "";
 </div>
 
 <?php
-  $sql = "SELECT userId, username, password FROM users";
+  $sql = "SELECT productName,price,image,description,quantity FROM products WHERE productName='".$_GET["product"]."'";
   $result = mysqli_query($link,$sql,MYSQLI_USE_RESULT);
+  echo "<div>";
   if($result){
-    while($row=mysqli_fetch_row($result)) {
-      echo "id: " . $row[0]. " - Name: " . $row[1]. "     Password:" . $row[2]. "<br>";
-    }
+    $row=mysqli_fetch_row($result);
+    echo "<div>Product: <br>" .
+    '<img src = "data:image/png;base64,' . base64_encode($row[2]) . '" width = "500px" height = "500px"/>'
+    . "<br>". $row[0] . " $". $row[1] ."<br>".
+    "Desription: " . $row[3] ."<br>".
+    "<form action='addCart.php?productName=".$row[0]."&price=". $row[1]."' method='post'>".
+    "<input type='number' min='0' max='". $row[4]."' required  name='quantity'>".
+    "<button type='submit' class='button'>Add To Cart</button>".
+    "</div><br>";
+    mysqli_free_result($result);
   }
+    echo "</div>";
   $link->close();
 ?>
 

@@ -23,7 +23,7 @@ $username_err = $password_err = $login_err = "";
 <body>
 
 <div class="head">
-<h1> UserPage </h1>
+<h1> Summary Page </h1>
 </div>
 
 <div class="topnav">
@@ -44,13 +44,18 @@ $username_err = $password_err = $login_err = "";
 </div>
 
 <?php
-  $sql = "SELECT userId, username, password FROM users";
+  $sql = "SELECT productName,price,image FROM products";
   $result = mysqli_query($link,$sql,MYSQLI_USE_RESULT);
+  echo "<div>";
   if($result){
-    while($row=mysqli_fetch_row($result)) {
-      echo "id: " . $row[0]. " - Name: " . $row[1]. "     Password:" . $row[2]. "<br>";
+    While($row=mysqli_fetch_row($result)){
+    echo "<div>Product: <br><a href='productDetail.php?product=".$row[0]."'>" .
+    '<img src = "data:image/png;base64,' . base64_encode($row[2]) . '" width = "500px" height = "500px"/>'
+    . "<br>". $row[0] . " $". $row[1] ."<br></div></a><br>";
     }
+    mysqli_free_result($result);
   }
+    echo "</div>";
   $link->close();
 ?>
 
