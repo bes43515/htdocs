@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "config.php";
+require_once "..config/config.php";
 
 $sql = "SELECT productName,quantity FROM orderList WHERE userId='".$_SESSION['userId']."'";
 $delete_sql = "DELETE FROM orderList WHERE userId='".$_SESSION['userId']."'";
