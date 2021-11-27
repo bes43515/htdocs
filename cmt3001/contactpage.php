@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(!isset( $_SESSION['userName'])){
+	header("location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -13,13 +19,7 @@
   <h2> Contact Page </h2>
   </div>
 
-  <div class="topnav">
-  	<a href="homepage.html">Home</a>
-  	<a href="products.html">All Products</a>
-  	<a href="recipespage.html">Recipes</a>
-  	<a href="contactpage.html">Contact us</a>
-  	<input type="text" placeholder="Search...">
-  </div>
+<?php include 'decorator/bar.php';?>
 
 
 <br>

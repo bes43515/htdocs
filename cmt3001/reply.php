@@ -8,7 +8,11 @@ require_once "config/config.php";
 
 $userName = $password = "";
 $userName_err = $password_err = $login_err = "";
-
+if(!isset($_GET["product"])){
+  header("location: ../homepage.php");
+  exit;
+  }
+$productName=$_GET["product"];
 ?>
 
 <!DOCTYPE html>
@@ -28,20 +32,15 @@ $userName_err = $password_err = $login_err = "";
 
 <?php include 'decorator/bar.php';?>
 
-<div>
+<form action="action/reply.php?product=<?php echo $productName?>" method="post">
+  <div>
+    <textarea type="textarea" rows="6" cols="50" name="description" required></textarea>
+    <br>
+    <input type="submit" value="Reply">
+  </div>
+</form>
 
-<?php
-  $sql = "SELECT userId, userName, password FROM users";
-  $result = mysqli_query($link,$sql,MYSQLI_STORE_RESULT);
-  if($result){
-    while($row=mysqli_fetch_row($result)) {
-      echo "id: " . $row[0]. " - Name: " . $row[1]. "     Password:" . $row[2]. "<br>";
-    }
-  }
-  $link->close();
-?>
 
-</div>
 
 <?php include 'decorator/footer.php';?>
 

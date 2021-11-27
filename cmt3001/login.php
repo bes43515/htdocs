@@ -1,22 +1,22 @@
 <?php
 session_start();
 
-if(isset($_SESSION["username"])){
+if(isset($_SESSION["userName"])){
     header("location: homepage.php");
     exit;
 }
 
 require_once "config/config.php";
 
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
+$userName = $password = "";
+$userName_err = $password_err = $login_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(empty(trim($_POST["uname"]))){
-        $username_err = "Please enter username.";
+        $userName_err = "Please enter username.";
     } else{
-        $username = trim($_POST["uname"]);
+        $userName = trim($_POST["uname"]);
       //  error_log(print_r($username,TRUE));
     }
 
@@ -27,18 +27,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       //  error_log(print_r($password ,TRUE));
     }
 
-    if(empty($username_err) && empty($password_err)){
-        $sql = "SELECT userId, username, password FROM users WHERE username = ?";
+    if(empty($userName_err) && empty($password_err)){
+        $sql = "SELECT userId, userName, password FROM users WHERE userName = ?";
 
         if($statment = mysqli_prepare($link, $sql)){
                   //  error_log(print_r("yes" ,TRUE));
             mysqli_stmt_bind_param($statment, "s", $param_username);
-            $param_username = $username;
+            $param_username = $userName;
             error_log(print_r($param_username ,TRUE));
             if(mysqli_stmt_execute($statment)){
                 mysqli_stmt_store_result($statment);
                 if(mysqli_stmt_num_rows($statment) == 1){
-                    mysqli_stmt_bind_result($statment, $id, $username, $hashed_password);
+                    mysqli_stmt_bind_result($statment, $id, $userName, $hashed_password);
 
                     if(mysqli_stmt_fetch($statment)){
 
@@ -46,8 +46,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             error_log(print_r($hashed_password,TRUE));
                             session_start();
                             $_SESSION["userId"] = $id;
-                            $_SESSION["username"] = $username;
-                            if($username == "admin")
+                            $_SESSION["userName"] = $userName;
+                            if($userName == "admin")
                               header("location: summary.php");
                             else
                               header("location: homepage.php");
@@ -91,7 +91,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <button type="submit">Login</button>
   </div>
-</form>
 
+</form>
+  <div class="container">
+  <a href="register.php"><button>Register</button></a>
+</div>
 </body>
 </html>

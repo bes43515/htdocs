@@ -1,14 +1,18 @@
 <?php
 session_start();
-if(!isset( $_SESSION['username'])){
+if(!isset( $_SESSION['userName'])){
 	header("location: login.php");
 }
 
 require_once "config/config.php";
 
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
-
+$userName = $password = "";
+$userName_err = $password_err = $login_err = "";
+if(!isset($_GET["product"])){
+  header("location: ../homepage.php");
+  exit;
+  }
+$productName=$_GET["product"];
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +35,8 @@ $username_err = $password_err = $login_err = "";
 <div>
 
 <?php
-  $sql = "SELECT productName,price,image,description,quantity FROM products WHERE productName='".$_GET["product"]."'";
-  $result = mysqli_query($link,$sql,MYSQLI_USE_RESULT);
+  $sql = "SELECT productName,price,image,description,quantity FROM products WHERE productName='$productName'";
+  $result = mysqli_query($link,$sql,MYSQLI_STORE_RESULT);
   echo "<div>";
   if($result){
     $row=mysqli_fetch_row($result);
@@ -43,15 +47,14 @@ $username_err = $password_err = $login_err = "";
   	echo  "<form action='action/addCart.php?productName=".$row[0]."&price=". $row[1]."' method='post'>";
   	echo  "<input type='number' min='0' max='". $row[4]."' required  name='quantity'>";
   	echo  "<button type='submit' class='button'>Add To Cart</button>";
-  	echo  "</div><br>";
+  	echo  "</form></div><br>";
     mysqli_free_result($result);
   }
     echo "</div>";
-  $link->close();
 ?>
 
 </div>
-
+<?php include 'action/comment.php';?>
 <?php include 'decorator/footer.php';?>
 
 </body>

@@ -4,11 +4,17 @@ if(!isset( $_SESSION['userName'])){
 	header("location: login.php");
 }
 
+$column = $_GET["column"];
+$name = $_GET["name"];
+
 require_once "config/config.php";
 
 $userName = $password = "";
 $userName_err = $password_err = $login_err = "";
-
+if(!isset($_GET["column"])&&!isset($_GET["name"])){
+  header("location: ../homepage.php");
+  exit;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +29,7 @@ $userName_err = $password_err = $login_err = "";
 <body>
 
 <div class="head">
-<h1> UserPage </h1>
+<h1><?php echo "Edit $column";?> </h1>
 </div>
 
 <?php include 'decorator/bar.php';?>
@@ -31,19 +37,18 @@ $userName_err = $password_err = $login_err = "";
 <div>
 
 <?php
-  $sql = "SELECT userId, userName, password FROM users";
-  $result = mysqli_query($link,$sql,MYSQLI_STORE_RESULT);
-  if($result){
-    while($row=mysqli_fetch_row($result)) {
-      echo "id: " . $row[0]. " - Name: " . $row[1]. "     Password:" . $row[2]. "<br>";
-    }
-  }
-  $link->close();
+
+echo  "$name :";
+echo  "<form action='action/edit.php?column=$column&name=$name' method='post'>";
+echo  "<input type='text' name='editName' value='$name' required>";
+echo  "<button type='submit' class='button'>Edit</button></form><br>";
+
 ?>
 
 </div>
 
 <?php include 'decorator/footer.php';?>
+
 
 </body>
 </html>

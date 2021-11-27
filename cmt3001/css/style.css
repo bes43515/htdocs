@@ -47,7 +47,22 @@ font-size: 19px;
   background-color: blue;
   color: black;
 }
-
+.topnav button {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 13px;
+  margin-right: 18px;
+  font-size: 19px;
+}
+.topnav select {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 13px;
+  margin-right: 18px;
+  font-size: 19px;
+}
 .topnav input[type=text] {
   float: right;
   padding: 6px;
@@ -56,14 +71,19 @@ font-size: 19px;
   margin-right: 18px;
   font-size: 19px;
 }
+
+
+
+
 .row{
-  display: table;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 1em;
+  margin: 25px;
 }
 .row img{
   width: 100%;
-  flex: 33.33%;
-  padding: 25px;
+  height:95%;
 }
 
 @media screen and (max-width: 600px) {
@@ -231,4 +251,19 @@ h3{
 .down{
     text-align: center;
     vertical-align: middle;
+}
+
+  .addform {border: 3px solid #f1f1f1;}
+
+  .add {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.addcontainer {
+  padding: 16px;
 }

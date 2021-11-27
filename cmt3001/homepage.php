@@ -1,16 +1,16 @@
 <?php
+ header("Content-Type: text/html;charset=UTF-8");
 session_start();
-if(!isset( $_SESSION['username'])){
-	header("location: login.php");
-}
+
 ?>
 
 <!DOCTYPE html>
 <html>
 
+
 <head>
 	<link rel="stylesheet" href="css/style.css">
-	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
 </head>
 
@@ -22,18 +22,17 @@ if(!isset( $_SESSION['username'])){
 
 <?php include 'decorator/bar.php';?>
 
-<br>
-
+	<br>
 
 	<div class="row">
 	  <div class="column">
-	    <img src="img/image.jpg" alt="bakingtool"style="width:420px;height:300px;" >
+	    <img src="img/image.jpg" alt="bakingtool" >
 	  </div>
 	  <div class="column">
-	    <img src="img/image2.jpg" alt="bakingingredient"style="width:420px;height:300px;" >
+	    <img src="img/image2.jpg" alt="bakingingredient">
 	  </div>
 	  <div class="column">
-	    <img src="img/image3.jpg" alt="cookies"style="width:430px;height:300px;" >
+	    <img src="img/image3.jpg" alt="cookies" >
 	  </div>
 	</div>
 
